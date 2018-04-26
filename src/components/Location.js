@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
 
 //arrow function
 /*Puede ser con parentesis y solo una linea o puede ser con llaves y poner un return
@@ -19,5 +21,7 @@ const Location = ({city}) => (
     
 );
     
-
+Location.propTypes={
+    city: PropTypes.string.isRequired,
+};
 export default Location;
