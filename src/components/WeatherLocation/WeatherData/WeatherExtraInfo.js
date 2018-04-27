@@ -7,7 +7,7 @@ const WeatherExtraInfo = ({humidity,wind}) => (
         Template String o template literal
     */
 
-    <div>
+    <div className='weatherExtraInfoContent'>
         <span>
             {`${humidity} % | `}
         </span>

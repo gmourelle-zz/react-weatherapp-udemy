@@ -1,7 +1,7 @@
 import React from 'react'
 import WeatherIcons from 'react-weathericons';
 import PropTypes from 'prop-types';
-import { CLOUD , CLOUDY, SUN, RAIN} from "./../constants/weathers";
+import { CLOUD , CLOUDY, SUN, RAIN} from "./../../../constants/weathers";
 
 const stateToIconName = weatherState =>{
 
@@ -27,15 +27,15 @@ const stateToIconName = weatherState =>{
 
 const getWeatherIcon=weatherState=>{
 
-    return (<WeatherIcons name={stateToIconName(weatherState)} size="2x" />);
+    return (<WeatherIcons className='wicon' name={stateToIconName(weatherState)} size="4x" />);
 }
 
 const WeatherTemperature = ({temperature, weatherState}) => (
     
-    <div>
+    <div className='weatherTemperatureContent'>
         {getWeatherIcon(weatherState)}    
-    <span> {`${temperature} C `}</span>
-    
+    <span className='temperature'> {`${temperature} C `}</span>
+    <span className='temperaturetype'> C</span>
     </div>    
 );
 
