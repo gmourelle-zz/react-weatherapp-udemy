@@ -1,9 +1,9 @@
 import convert from 'convert-units';
-import { CLOUD,
+import { 
     CLOUDY,
     SUN,
     RAIN ,
-    WINDY, 
+     
     SNOW,
     THUNDER,
     DRIZZLE } from "./../constants/weathers";
