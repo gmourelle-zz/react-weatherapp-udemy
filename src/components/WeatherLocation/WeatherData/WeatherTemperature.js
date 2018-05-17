@@ -45,7 +45,7 @@ const WeatherTemperature = ({temperature, weatherState}) => (
     
     <div className='weatherTemperatureContent'>
         {getWeatherIcon(weatherState)}    
-    <span className='temperature'> {`${temperature}`}</span>
+    <span className='temperature'> {`${Math.round( temperature )}`}</span>
     <span className='temperaturetype'> C°</span>
     </div>    
 );

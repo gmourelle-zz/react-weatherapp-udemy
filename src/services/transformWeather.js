@@ -1,20 +1,17 @@
 import convert from 'convert-units';
-import { 
-    CLOUDY,
+import { CLOUDY, 
     SUN,
-    RAIN,     
-    SNOW,
-    THUNDER,
-    DRIZZLE } from "./../constants/weathers";
+    RAIN,
+    SNOW, 
+    THUNDER, 
+    DRIZZLE } from './../constants/weathers';
 
-const getTemp = kelvin =>{
-
-    return Number(convert(kelvin).from('K').to('C').toFixed(0));
+const getTemp = kelvin => {
+    return Number(convert(kelvin).from('K').to('C').toFixed(2));
 }
 
-const getWeatherState = weather =>{
-
-    const {id}=weather[0];
+const getWeatherState = weather => {
+    const { id } = weather[0];
 
     if (id < 300) {
         return THUNDER;
@@ -31,19 +28,20 @@ const getWeatherState = weather =>{
     }
 }
 
-const transformWeather= weather_data =>{
-    const {weather}= weather_data;
-    const {humidity,temp}=weather_data.main;
-    const{speed}=weather_data.wind;
-    const weatherState=getWeatherState(weather);
+const transformWeather = weather_data => {
+    const { weather } = weather_data;
+    const { humidity, temp } = weather_data.main;
+    const { speed } = weather_data.wind;
+    const weatherState = getWeatherState(weather);
     const temperature = getTemp(temp);
 
-    const data={
+    const data = {
+        humidity, 
         temperature,
         weatherState,
-        humidity,
-        wind:`${speed}m/s`,
-    };
+        wind: `${speed} m/s`,
+    }
+
     return data;
 }
 

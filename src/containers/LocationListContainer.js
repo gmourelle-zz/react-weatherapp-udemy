@@ -1,47 +1,50 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {setSelectedCity, setWeather} from './../actions';
-import {getWeatherCities} from './../reducers';
+import { connect } from 'react-redux';
+import * as actions from './../actions'
+import { getWeatherCities, getCity } from './../reducers';
 import LocationList from './../components/LocationList';
-
 
 class LocationListContainer extends Component {
 
     componentDidMount() {
-        this.props.setWeather(this.props.cities);
+        const { setWeather, setSelectedCity, cities, city } = this.props;
+
+        setWeather(cities);
+
+        setSelectedCity(city);
     }
     
-
-    handleSelectedLocation = city =>{
-        //this.setState({city});//destructuring. No haría falta asignarle el valor a la prop. Con las llaves y el mismo nombre ya lo asigna
-     
-         this.props.setCity(city); //dispatch ayuda a disparar la accion
-    };
-
+    handleSelectedLocation = city => {
+        this.props.setSelectedCity(city);
+    }
+        
     render() {
         return (
-            <LocationList cities={this.props.citiesWeather}
-                onSelectedLocation={this.handleSelectedLocation}>
-            </LocationList>
+            <LocationList cities={this.props.citiesWeather} 
+              onSelectedLocation={this.handleSelectedLocation} ></LocationList>
         );
     }
 }
 
 LocationListContainer.propTypes = {
-    setCity: PropTypes.func.isRequired,
+    setSelectedCity: PropTypes.func.isRequired,
+    setWeather: PropTypes.func.isRequired,
     cities: PropTypes.array.isRequired,
-    citiesWeather: PropTypes.array
+    citiesWeather: PropTypes.array,
+    city: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-      setCity: value => dispatch(setSelectedCity(value)),
-      setWeather: cities => dispatch(setWeather(cities))
-});
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+/*const mapDispatchToProps = dispatch => ({
+    setSelectedCity: value => dispatch(setSelectedCity(value)),
+    setWeather: cities => dispatch(setWeather(cities)),
+});*/
 
 const mapStateToProps = state => ({
-citiesWeather: getWeatherCities(state)});
+    citiesWeather: getWeatherCities(state),
+    city: getCity(state)
+});
 
-
-//el segundo parámetro sería para conectar las actions con el container
 export default connect(mapStateToProps, mapDispatchToProps)(LocationListContainer);
